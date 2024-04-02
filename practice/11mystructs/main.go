@@ -9,7 +9,7 @@ func main() {
 	shivam := User{"shivam", "shivam.salame@google.com", true, 24}
 	fmt.Println(shivam)
 	fmt.Printf("shivam details are: %+v\n", shivam)
-	fmt.Println("name: %v, email: %v, status: %v, age: %v", shivam.Name, shivam.Email, shivam.Status, shivam.Age)
+	fmt.Printf("name: %v, email: %v, status: %v, age: %v", shivam.Name, shivam.Email, shivam.Status, shivam.Age)
 }
 
 type User struct {
