@@ -30,6 +30,6 @@ func (u User) GetStatus(){
 
 // this creates a copy for every new object
 func (u User) GetEmail(){
-	u.Email = "shivam.salame@ril.com"
+	u.Email = "shivam.salame@z.com"
 	fmt.Println("Email is:", u.Email)
 }
