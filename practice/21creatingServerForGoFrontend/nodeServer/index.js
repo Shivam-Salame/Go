@@ -13,7 +13,7 @@ app.get('/get',(req, res) => {
     res.status(200).json({message: "hello from shivam"})
 })
 
-app.post('/', (req, res) => {
+app.post('/post', (req, res) => {
     let myJson = req.body; //your json
     res.status(200).send(myJson);
 })
