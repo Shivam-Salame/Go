@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Channels")
+	fmt.Println("Channels is the way how goroutine talk to each other")
 
 	// myChannel := make(chan int)
 
@@ -19,15 +19,27 @@ func main() {
 	wg := &sync.WaitGroup{}
 
 	wg.Add(2)
+	// to make read only goroutine "<-chan"
 	go func(ch chan int, wg *sync.WaitGroup){
+		// close(myCh) will give error here it is readonly goroutine
+
 		fmt.Println(<-myCh)
 		fmt.Println(<-myCh) // adding the second listener so deadlock wont arise
+
+		val, isChannelOpen := <-myCh
+		fmt.Println(isChannelOpen)
+		fmt.Println(val)
 		wg.Done()
 	}(myCh, wg)
-
+	
+	// to make send only goroutine "chan<-"
 	go func(ch chan int, wg *sync.WaitGroup){
+		// close(myCh) // if we close the channel before passing values it will throw an error: send on closed channel,
+		// if we don't pass any values it takes by default 0, if we pass 0 value before closing connection it will work
 		myCh <- 5
-		myCh <-6 // if we pass 2 values and there is not listener for the second value it will trow deadlock error
+		myCh <- 6 // if we pass 2 values and there is not listener for the second value it will trow deadlock error
+		myCh <- 0
+		close(myCh)
 		wg.Done()
 	}(myCh, wg)
 	wg.Wait()
